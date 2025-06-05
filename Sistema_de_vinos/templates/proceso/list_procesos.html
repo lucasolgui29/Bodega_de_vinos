@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Vinos</title>
+</head>
+<body>
+    <h1>Procesos de Vinificación</h1>
+    <p><a href="/">Volver al inicio</a></p>
+<p><a href="{{ url_for('proceso_vitivinicultura.new_proceso') }}">Iniciar Nuevo Proceso</a></p>
+<ul>
+    {% for p in procesos %}
+    <li>
+        Lote: {{ p.nombre_lote }} ({{ p.variedad_uva.nombre }}) - Estado: {{ p.estado_actual }}
+        <a href="{{ url_for('proceso_vitivinicultura.details_proceso', proceso_id=p.id) }}">Ver Detalles</a>
+    </li>
+    {% endfor %}
+</ul>
+<p><a href="{{ url_for('proceso_vitivinicultura.almacenamiento_search') }}">Ir al Buscador de Almacenamiento</a></p>
+</body>
+</html>
+

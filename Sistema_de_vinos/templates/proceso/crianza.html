@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crianza / Almacenamiento</title>
+</head>
+<body>
+    <h1>Crianza / Almacenamiento para Lote: {{ proceso.nombre_lote }} (ID: {{ proceso.id }})</h1>
+    <form method="POST">
+        <label for="tipo_recipiente">Tipo de Recipiente:</label>
+        <input type="text" id="tipo_recipiente" name="tipo_recipiente" value="{{ parametros.tipo_recipiente or '' }}"><br><br>
+        
+        <label for="tiempo_crianza">Tiempo de Crianza (meses):</label>
+        <input type="number" id="tiempo_crianza" name="tiempo_crianza" step="0.01" value="{{ parametros.tiempo_crianza or '' }}"><br><br>
+        
+        <label for="observaciones">Observaciones:</label>
+        <textarea id="observaciones" name="observaciones">{{ etapa.observaciones or '' }}</textarea><br><br>
+        
+        <button type="submit">Guardar Crianza / Almacenamiento</button>
+    </form>
+    <p><a href="{{ url_for('proceso_vitivinicultura.details_proceso', proceso_id=proceso.id) }}">Volver a detalles del proceso</a></p>
+</body>
+</html>

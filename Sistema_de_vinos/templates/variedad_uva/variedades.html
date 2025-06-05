@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos de Uvas</title>
+</head>
+<body>
+    <h1>Tipos de Uvas</h1>
+    <p><a href="/">Volver al inicio</a></p>
+    <p><a href="{{ url_for('variedad_uva.add_variedad') }}">Agregar Nueva Variedad de Uva</a></p>
+
+    {% if variedades %}
+        <ul>
+            {% for variedad in variedades %}
+            <li>
+                {% if variedad.ruta_foto %}
+                    <img src="{{ url_for('static', filename='images/variedad_uva/' + variedad.ruta_foto) }}"
+                         alt="Foto de {{ variedad.nombre }}" width="80" height="80">
+                {% else %}
+                    <span>No foto</span>
+                {% endif %}
+
+                <div>
+                    <p><strong>Nombre:</strong> {{ variedad.nombre }}</p>
+                    <p><strong>Descripción:</strong> {{ variedad.descripcion }}</p>
+                    <p><strong>Color:</strong> {{ variedad.color }}</p>
+                    <p><strong>Región:</strong> {{ variedad.region }}</p>
+                    <p>ID: {{ variedad.id }}</p>
+                </div>
+                <div>
+                    <a href="{{ url_for('variedad_uva.edit_variedad', id=variedad.id) }}">Editar</a><br><br>
+                    <form action="{{ url_for('variedad_uva.delete_variedad', id=variedad.id) }}" method="POST" onsubmit="return confirm('¿Estás seguro que quieres eliminar esta variedad de uva?');">
+                        <button type="submit">Eliminar</button><br><br><br><br>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay variedades de uva registradas aún.</p>
+    {% endif %}
+
+</body>
+</html>

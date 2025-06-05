@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Vino</title>
+</head>
+<body>
+    <h1>Editar Vino: {{ vino.nombre_vino }}</h1>
+    <h3><p><a href="/vinos">Volver al Catálogo de Vinos</a></p></h3>
+    <form action="{{ url_for('vino_productos.edit_vino', id=vino.id) }}" method="post" enctype="multipart/form-data">
+        <label for="nombre_vino">Nombre del Vino:</label><br>
+        <input type="text" id="nombre_vino" name="nombre_vino" value="{{ vino.nombre_vino }}" required><br><br>
+
+        <label for="proceso_id">Seleccionar Lote de Vinificación:</label><br>
+        <select id="proceso_id" name="proceso_id" required>
+            {% if procesos %}
+                {% for proceso in procesos %}
+                <option value="{{ proceso.id }}" {% if proceso.id == vino.proceso_id %}selected{% endif %}>
+                    {{ proceso.nombre_lote }} (Variedad: {{ proceso.variedad_uva.nombre }})
+                </option>
+                {% endfor %}
+            {% else %}
+                <option value="" disabled>No hay lotes con embotellado completado.</option>
+            {% endif %}
+        </select><br><br>
+
+        <label for="precio">Precio ($):</label><br>
+        <input type="number" id="precio" name="precio" step="0.01" value="{{ vino.precio }}" required><br><br> 
+
+        <label for="image">Cambiar Imagen del Vino (opcional):</label><br>
+        <input type="file" id="image" name="image" accept="image/*"><br><br>
+        {% if vino.imagen %}
+            <p>Imagen actual:</p>
+            <img src="{{ url_for('static', filename='images/' + vino.imagen) }}" class="vino-list-image"><br><br>
+        {% endif %}
+
+        <input type="submit" value="Actualizar Vino">
+    </form>
+</body>
+</html>
+
+
+
+
+

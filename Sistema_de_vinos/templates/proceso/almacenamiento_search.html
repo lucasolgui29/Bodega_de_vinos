@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almacenamiento</title>
+</head>
+<body>
+    <h1>Buscador de Vinos Almacenados (Etapa de Crianza)</h1>
+<form method="GET" action="{{ url_for('proceso_vitivinicultura.almacenamiento_search') }}">
+    <label for="variedad_id">Variedad de Uva:</label>
+    <select id="variedad_id" name="variedad_id">
+        <option value="">Todas</option>
+        {% for var in variedades_disponibles %}
+        <option value="{{ var.id }}" {% if variedad_filtro_id == var.id %}selected{% endif %}>{{ var.nombre }}</option>
+        {% endfor %}
+    </select><br><br>
+    <label for="recipiente">Tipo de Recipiente:</label>
+    <input type="text" id="recipiente" name="recipiente" value="{{ recipiente_filtro or '' }}"><br><br>
+    <button type="submit">Buscar</button>
+</form>
+
+<h2>Resultados de la Búsqueda:</h2>
+{% if resultados %}
+    <ul>
+        {% for etapa_crianza in resultados %}<br><br>
+        <li>
+            Lote: {{ etapa_crianza.proceso_vinificacion.nombre_lote }} (Variedad: {{ etapa_crianza.proceso_vinificacion.variedad_uva.nombre }})<br>
+            Tipo de Recipiente: {{ etapa_crianza.get_parametros().tipo_recipiente or 'N/A' }}<br>
+            Tiempo de Crianza: {{ etapa_crianza.get_parametros().tiempo_crianza or 'N/A' }} meses<br>
+            Fecha de Inicio de Crianza: {{ etapa_crianza.fecha_inicio_etapa.strftime('%Y-%m-%d') }}
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No se encontraron resultados.</p>
+{% endif %}
+<p><a href="{{ url_for('proceso_vitivinicultura.list_procesos') }}">Volver a la lista de procesos</a></p>
+</body>
+</html>

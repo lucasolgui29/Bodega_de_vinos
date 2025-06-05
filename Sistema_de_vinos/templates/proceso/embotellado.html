@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embotellado</title>
+</head>
+<body>
+    <h1>Embotellado para Lote: {{ proceso.nombre_lote }} (ID: {{ proceso.id }})</h1>
+    <form method="POST">
+        <label for="fecha_embotellado">Fecha de Embotellado:</label>
+        <input type="date" id="fecha_embotellado" name="fecha_embotellado" value="{{ parametros.fecha_embotellado or '' }}"><br><br>
+        
+        <label for="cantidad_botellas">Cantidad de Botellas:</label>
+        <input type="number" id="cantidad_botellas" name="cantidad_botellas" value="{{ parametros.cantidad_botellas or '' }}"><br><br>
+        
+        <label for="observaciones">Observaciones:</label>
+        <textarea id="observaciones" name="observaciones">{{ etapa.observaciones or '' }}</textarea><br><br>
+        
+        <button type="submit">Guardar Embotellado</button>
+    </form>
+    <p><a href="{{ url_for('proceso_vitivinicultura.details_proceso', proceso_id=proceso.id) }}">Volver a detalles del proceso</a></p>
+</body>
+</html>

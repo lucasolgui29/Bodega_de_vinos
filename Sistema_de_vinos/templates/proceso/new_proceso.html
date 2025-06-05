@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo proceso</title>
+</head>
+<body>
+    <h1>Iniciar Nuevo Proceso de Vinificación</h1>
+    <form method="POST">
+        <label for="nombre_lote">Nombre del Lote:</label>
+        <input type="text" id="nombre_lote" name="nombre_lote" required><br><br>
+        <label for="variedad_id">Variedad de Uva:</label>
+        <select id="variedad_id" name="variedad_id" required>
+            {% for var in variedades %}
+            <option value="{{ var.id }}">{{ var.nombre }}</option>
+            {% endfor %}
+        </select><br><br>
+        
+        <h2>Primera Etapa: Recepción de Uva</h2>
+        <label for="peso_uva">Peso de la uva (kg):</label>
+        <input type="number" id="peso_uva" name="peso_uva" step="0.01"><br><br>
+        <label for="estado_sanitario">Estado Sanitario:</label>
+        <input type="text" id="estado_sanitario" name="estado_sanitario"><br><br>
+        
+        <label for="observaciones">Observaciones (Recepción):</label>
+        <textarea id="observaciones" name="observaciones"></textarea><br><br>
+
+        <button type="submit">Iniciar Proceso y Registrar Recepción</button>
+    </form>
+    <p><a href="{{ url_for('proceso_vitivinicultura.list_procesos') }}">Volver a la lista de procesos</a></p>
+</body>
+</html>
+
+

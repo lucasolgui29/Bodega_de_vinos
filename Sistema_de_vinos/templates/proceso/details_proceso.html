@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles</title>
+</head>
+<body>
+    <h1>Detalles del Proceso: {{ proceso.nombre_lote }} (Variedad: {{ proceso.variedad_uva.nombre }})</h1>
+<p>Estado Actual: {{ proceso.estado_actual }}</p>
+<p>Fecha de Inicio: {{ proceso.fecha_inicio_proceso.strftime('%Y-%m-%d %H:%M') }}</p>
+
+<h2>Opciones de Etapas:</h2>
+<ul>
+    <li><a href="{{ url_for('proceso_vitivinicultura.recepcion_uva', proceso_id=proceso.id) }}">Gestionar Recepción de Uva</a></li>
+    <li><a href="{{ url_for('proceso_vitivinicultura.fermentacion_alcoholica', proceso_id=proceso.id) }}">Gestionar Fermentación Alcohólica</a></li>
+    <li><a href="{{ url_for('proceso_vitivinicultura.crianza_almacenamiento', proceso_id=proceso.id) }}">Gestionar Crianza / Almacenamiento</a></li>
+    <li><a href="{{ url_for('proceso_vitivinicultura.embotellado', proceso_id=proceso.id) }}">Gestionar Embotellado</a></li>
+</ul>
+
+<h3>Etapas Registradas:</h3>
+{% if etapas %}
+    <ul>
+        {% for etapa in etapas %}
+        <li>
+            <strong>Tipo:</strong> {{ etapa.tipo_etapa }}<br>
+            <strong>Inicio:</strong> {{ etapa.fecha_inicio_etapa.strftime('%Y-%m-%d %H:%M') }}
+            {% if etapa.fecha_fin_etapa %} - <strong>Fin:</strong> {{ etapa.fecha_fin_etapa.strftime('%Y-%m-%d %H:%M') }} {% endif %}<br>
+            <strong>Parámetros:</strong> {{ etapa.get_parametros() }}<br>
+            {% if etapa.observaciones %}<strong>Observaciones:</strong> {{ etapa.observaciones }}<br>{% endif %}<br><br>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay etapas registradas para este proceso.</p>
+{% endif %}
+<p><a href="{{ url_for('proceso_vitivinicultura.list_procesos') }}">Volver a la lista de procesos</a></p>
+</body>
+</html>
+
+
+

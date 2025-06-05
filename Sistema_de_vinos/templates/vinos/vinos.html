@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Vinos</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 20px; 
+            display: flex;
+            align-items: center; 
+            gap: 10px; 
+            border-bottom: 1px solid #eee; 
+            padding-bottom: 10px;
+        }
+        a {
+            color: blue;
+            text-decoration: underline;
+        }
+        .vino-list-image {
+            max-width: 80px; 
+            height: auto; 
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+        }
+        .flashes li {
+            color: green;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            display: list-item;
+            list-style-type: none;
+        }
+        .flashes li.danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <h1>Catálogo de Vinos</h1>
+    <p><a href="/">Volver al inicio</a></p>
+    <p><a href="/vinos/new">Agregar Nuevo Vino</a></p>
+    {% if vinos %}
+        <ul>
+            {% for vino in vinos %}
+            <li>
+                {% if vino.imagen %}
+                    <img src="{{ url_for('static', filename='images/' + vino.imagen) }}"
+                         alt="Imagen de {{ vino.nombre_vino }}"
+                         class="vino-list-image">
+                {% else %}
+                    <span class="vino-list-image-placeholder">No hay imagen</span>
+                {% endif %}
+                **{{ vino.nombre_vino }}** (Lote: {{ vino.nombre_lote }} - {{ vino.variedad_uva }}) - ${{ "%.2f"|format(vino.precio) }}
+                
+                <form action="{{ url_for('vino_productos.delete_vino', id=vino.id) }}" method="POST" style="display:inline-block; margin-left: 10px;">
+                    <button type="submit" onclick="return confirm('¿Eliminar {{ vino.nombre_vino }}?');">
+                        Eliminar
+                    </button>
+                </form>
+                <a href="{{ url_for('vino_productos.edit_vino', id=vino.id) }}" style="margin-left: 10px;">Editar</a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay vinos registrados en el catálogo aún.</p>
+    {% endif %}
+
+</body>
+</html>

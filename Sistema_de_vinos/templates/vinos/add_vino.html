@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Nuevo Vino</title>
+</head>
+<body>
+    <h1>Agregar Nuevo Vino al Catálogo</h1>
+    <h3><p><a href="/vinos">Ver Catálogo de Vinos</a></p></h3>
+    <form action="/vinos/new" method="post" enctype="multipart/form-data">
+        <label for="nombre_vino">Nombre del Vino:</label><br>
+        <input type="text" id="nombre_vino" name="nombre_vino" required><br><br>
+
+        <label for="proceso_id">Seleccionar Lote de Vinificación:</label><br>
+        <select id="proceso_id" name="proceso_id" required>
+            {% if procesos %}
+                {% for proceso in procesos %}
+                <option value="{{ proceso.id }}">
+                    {{ proceso.nombre_lote }} (Variedad: {{ proceso.variedad_uva.nombre }})
+                </option>
+                {% endfor %}
+            {% else %}
+                <option value="" disabled selected>No hay lotes con embotellado completado.</option>
+            {% endif %}
+        </select><br><br>
+
+        <label for="precio">Precio ($):</label><br>
+        <input type="number" id="precio" name="precio" step="0.01" required><br><br> 
+
+        <label for="image">Imagen del Vino:</label><br>
+        <input type="file" id="image" name="image" accept="image/*"><br><br>
+
+        <input type="submit" value="Cargar Vino">
+    </form>
+</body>
+</html>
+
