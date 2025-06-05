@@ -1,0 +1,3 @@
+Sistema de registro y venta de uvas y vinos. De Simón García, Ayelén Peña, Lucas Olguín, Valentina Frías
+
+#Para iniciar la aplicación se deben configurar el archivo .env y el config.py correctamente #luego al tener conectada la base de datos, iniciar la primera vez se debe descomentar la línea 37 (db.drop_all()) para que recree la base de datos y cargar los modelos #despues de tener creada la base de datos se debe de volver a comentar, con eso ya se deberia poder iniciar la aplicación poniendo en la consola (python app.py) #pero antes también activar el entorno virtual, tambien tener instalados los requerimientos
