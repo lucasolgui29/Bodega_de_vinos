@@ -1,3 +1,31 @@
 body {
-    background-color: rgb(183, 167, 221);
+    background-image: url('../img/fondo_vino.png'); 
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #f0f0f0;
+}
+
+h1, h2, h3, p { 
+    background-color: rgba(255, 255, 255, 0.7); 
+    padding: 5px 10px; 
+    display: inline-block; 
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+
+h1 {
+    color: #333;
+}
+
+h2, h3, p, a {
+    color: #333; 
+    text-decoration: none; 
+}
+
+
+h2 p a, h3 p a {
+    color: #007bff; 
 }
